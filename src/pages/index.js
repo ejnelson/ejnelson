@@ -52,10 +52,10 @@ const ErrorSpan = styled.span`
 `
 const BackgroundImage = styled(Img)`
   position: fixed !important;
-  top: 0px;
-  left: ${isMobileDevice() ? "12%" : "0"};
-  height: 100%;
-  width: ${isMobileDevice() ? "76%" : "100%"};
+  top: ${isMobileDevice() ? "30%" : "0"};
+  /* height: ${isMobileDevice() ? "60%" : "100%"}; */
+  left: ${isMobileDevice() ? "0" : "12%"};
+  width: ${isMobileDevice() ? "100%" : "76%"};
   opacity: 0;
   transition: opacity 1s ease;
   &&.active {
@@ -89,8 +89,9 @@ const IndexPage = data => {
     }
     return { ...normalizedProps }
   }
-  console.log(data)
-  console.log(active)
+  console.log("data from queries: ", data)
+  console.log("active element: ", active)
+  console.log("mobile device? ", isMobileDevice())
   return (
     <Layout>
       <SEO title="Erik Nelson" />
