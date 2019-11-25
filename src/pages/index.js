@@ -9,6 +9,12 @@ import exo from "typeface-exo" // eslint-disable-line
 
 const letters = ["E", "R", "I", "K"]
 
+const isMobileDevice = () => {
+  return (
+    typeof window.orientation !== "undefined" ||
+    navigator.userAgent.indexOf("IEMobile") !== -1
+  )
+}
 const ImageContainer = styled.div`
   font-weight: bold;
   font-family: exo;
@@ -21,8 +27,11 @@ const ImageContainer = styled.div`
     z-index: 2;
     color: red;
     text-decoration: none;
-    margin: 1rem;
+    margin: ${isMobileDevice() ? "1rem" : "0px"};
     cursor: pointer;
+    &:focus {
+      outline: none;
+    }
   }
 `
 const ErrorSpan = styled.span`
@@ -44,21 +53,15 @@ const ErrorSpan = styled.span`
 const BackgroundImage = styled(Img)`
   position: fixed !important;
   top: 0px;
-  left: 12%;
+  left: ${isMobileDevice() ? "12%" : "0"};
   height: 100%;
-  width: 76%;
+  width: ${isMobileDevice() ? "76%" : "100%"};
   opacity: 0;
   transition: opacity 1s ease;
   &&.active {
     opacity: 1;
   }
 `
-const isMobileDevice = () => {
-  return (
-    typeof window.orientation !== "undefined" ||
-    navigator.userAgent.indexOf("IEMobile") !== -1
-  )
-}
 const IndexPage = data => {
   const [active, setActive] = useState("")
   const [clicked, setClicked] = useState("")
