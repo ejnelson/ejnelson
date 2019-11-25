@@ -19,16 +19,17 @@ const isMobileDevice = () => {
 const ImageContainer = styled.div`
   font-weight: bold;
   font-family: exo;
-  font-size: 8em;
+  font-size: 8rem;
 
   && button {
     position: relative;
     border: none;
+    height: 8rem;
     background: transparent;
     z-index: 2;
     color: red;
     text-decoration: none;
-    margin: ${isMobileDevice() ? "1rem" : "0px"};
+    margin: ${isMobileDevice() ? "0px" : "0px 2rem"};
     cursor: pointer;
     &:focus {
       outline: none;
@@ -112,6 +113,7 @@ const IndexPage = data => {
                 }
                 {...imageProps}
                 alt={node.name}
+                onClick={() => handleClick(node.url)}
               />
             ) : (
               <ErrorSpan
