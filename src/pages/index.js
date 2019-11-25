@@ -97,7 +97,7 @@ const IndexPage = data => {
   return (
     <Layout>
       <SEO title="Erik Nelson" />
-
+      this is mobile? {isMobileDevice().toString()}
       {letters.map((letter, index) => {
         const { node } = data.data.allSitesYaml.edges[index]
         const imageProps =
