@@ -1,11 +1,12 @@
-import React, { useState, useCallback, useEffect, useRef } from "react"
+import React, { useState, useCallback, useEffect } from "react"
 
 import Layout from "../components/layout"
 import SEO from "../components/seo"
 import Img from "gatsby-image"
 import { graphql } from "gatsby"
 import styled from "styled-components"
-import exo from "typeface-exo" // eslint-disable-line
+// eslint-disable-next-line
+import raleway from "typeface-raleway"
 
 const letters = ["E", "R", "I", "K"]
 
@@ -17,8 +18,8 @@ const isMobileDevice = () => {
   )
 }
 const ImageContainer = styled.div`
-  font-weight: bold;
-  font-family: exo;
+  font-weight: 900;
+  font-family: raleway;
   font-size: 8rem;
 
   && button {
@@ -160,7 +161,7 @@ export const query = graphql`
           childScreenshot {
             screenshotFile {
               childImageSharp {
-                fluid(maxWidth: 2048) {
+                fluid(grayscale: true, maxWidth: 2048) {
                   ...GatsbyImageSharpFluid
                   presentationWidth
                 }
