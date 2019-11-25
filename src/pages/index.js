@@ -11,7 +11,7 @@ const letters = ["E", "R", "I", "K"]
 
 const isMobileDevice = () => {
   return (
-    window &&
+    typeof window !== `undefined` &&
     (typeof window.orientation !== "undefined" ||
       navigator.userAgent.indexOf("IEMobile") !== -1)
   )
