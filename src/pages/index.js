@@ -1,4 +1,4 @@
-import React, { useState, useCallback } from "react"
+import React, { useState, useCallback, useEffect, useRef } from "react"
 
 import Layout from "../components/layout"
 import SEO from "../components/seo"
@@ -29,18 +29,14 @@ const ImageContainer = styled.div`
     z-index: 2;
     color: red;
     text-decoration: none;
-    margin: ${isMobileDevice() ? "0px" : "0px 2rem"};
+    margin: ${props => (props.mobile ? "0px" : "0px 2rem")};
     cursor: pointer;
     &:focus {
       outline: none;
     }
   }
 `
-const FixedDiv = styled.div`
-  position: fixed;
-  top: 0px;
-  left: 0px;
-`
+
 const ErrorSpan = styled.span`
   color: red;
   font-family: exo;
@@ -59,10 +55,10 @@ const ErrorSpan = styled.span`
 `
 const BackgroundImage = styled(Img)`
   position: fixed !important;
-  top: ${isMobileDevice() ? "30%" : "0"};
-  /* height: ${isMobileDevice() ? "60%" : "100%"}; */
-  left: ${isMobileDevice() ? "0" : "12%"};
-  width: ${isMobileDevice() ? "100%" : "76%"};
+  top: ${props => (props.mobile ? "30%" : "0")};
+  /* height: ${props => (props.mobile ? "60%" : "100%")}; */
+  left: ${props => (props.mobile ? "0" : "12%")};
+  width: ${props => (props.mobile ? "100%" : "76%")};
   opacity: 0;
   transition: opacity 1s ease;
   &&.active {
@@ -72,6 +68,14 @@ const BackgroundImage = styled(Img)`
 const IndexPage = data => {
   const [active, setActive] = useState("")
   const [clicked, setClicked] = useState("")
+  // let mobile = useRef(true)
+  const [mobile, setMobile] = useState(true)
+
+  useEffect(() => {
+    console.log("changing ref to ", isMobileDevice())
+    // mobile = isMobileDevice()
+    setMobile(isMobileDevice())
+  }, [])
 
   const handleClick = useCallback(nodeUrl => {
     if (nodeUrl === clicked || !isMobileDevice()) {
@@ -82,6 +86,7 @@ const IndexPage = data => {
   })
 
   const getImageProps = imageProps => {
+    // this was a stackoverflow answer to prevent images from stretching bigger than they should be
     let normalizedProps = imageProps
 
     if (imageProps.fluid && imageProps.fluid.presentationWidth) {
@@ -98,18 +103,17 @@ const IndexPage = data => {
   }
   console.log("data from queries: ", data)
   console.log("active element: ", active)
-  console.log("mobile device? ", isMobileDevice())
+  console.log("mobile device? ", mobile)
   return (
     <Layout>
       <SEO title="Erik Nelson" />
-      <FixedDiv>this is mobile? {isMobileDevice().toString()}</FixedDiv>
       {letters.map((letter, index) => {
         const { node } = data.data.allSitesYaml.edges[index]
         const imageProps =
           node.childScreenshot &&
           getImageProps(node.childScreenshot.screenshotFile.childImageSharp)
         return (
-          <ImageContainer key={index}>
+          <ImageContainer mobile={mobile} key={index}>
             {node.childScreenshot ? (
               <BackgroundImage
                 title={node.name}
@@ -119,6 +123,7 @@ const IndexPage = data => {
                 {...imageProps}
                 alt={node.name}
                 onClick={() => handleClick(node.url)}
+                mobile={mobile}
               />
             ) : (
               <ErrorSpan
