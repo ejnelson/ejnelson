@@ -1,67 +1,132 @@
-import React, { useState } from "react"
+import React, { useState, useCallback } from "react"
 
 import Layout from "../components/layout"
-// import Logo from "../components/logo"
 import SEO from "../components/seo"
 import Img from "gatsby-image"
 import { graphql } from "gatsby"
 import styled from "styled-components"
-import exo from "typeface-exo"
+import exo from "typeface-exo" // eslint-disable-line
 
 const letters = ["E", "R", "I", "K"]
 
 const ImageContainer = styled.div`
-  color: red;
   font-weight: bold;
   font-family: exo;
   font-size: 8em;
 
-  && a {
+  && button {
     position: relative;
+    border: none;
+    background: transparent;
     z-index: 2;
+    color: red;
     text-decoration: none;
     margin: 1rem;
-    &:visited {
-      color: red;
-    }
+    cursor: pointer;
   }
 `
-
-const BackgroundImage = styled(Img)`
+const ErrorSpan = styled.span`
+  color: red;
+  font-family: exo;
+  font-size: 2rem;
+  padding: 3rem;
   position: fixed !important;
   top: 0px;
   left: 0px;
   height: 100%;
   width: 100%;
   opacity: 0;
-  transition: all 1s ease;
-  &&.hovered {
+  transition: opacity 1s ease;
+  &&.active {
     opacity: 1;
   }
 `
+const BackgroundImage = styled(Img)`
+  position: fixed !important;
+  top: 0px;
+  left: 12%;
+  height: 100%;
+  width: 76%;
+  opacity: 0;
+  transition: opacity 1s ease;
+  &&.active {
+    opacity: 1;
+  }
+`
+const isMobileDevice = () => {
+  return (
+    typeof window.orientation !== "undefined" ||
+    navigator.userAgent.indexOf("IEMobile") !== -1
+  )
+}
 const IndexPage = data => {
-  const [hovered, setHovered] = useState("")
+  const [active, setActive] = useState("")
+  const [clicked, setClicked] = useState("")
+
+  const handleClick = useCallback(nodeUrl => {
+    if (nodeUrl === clicked || !isMobileDevice()) {
+      window.location = nodeUrl
+    } else {
+      setClicked(nodeUrl)
+    }
+  })
+
+  const getImageProps = imageProps => {
+    let normalizedProps = imageProps
+
+    if (imageProps.fluid && imageProps.fluid.presentationWidth) {
+      normalizedProps = {
+        ...imageProps,
+        style: {
+          ...(imageProps.style || {}),
+          maxWidth: imageProps.fluid.presentationWidth,
+          margin: "0 auto", // Used to center the image
+        },
+      }
+    }
+    return { ...normalizedProps }
+  }
   console.log(data)
-  console.log(hovered)
+  console.log(active)
   return (
     <Layout>
       <SEO title="Erik Nelson" />
-      {data.data.allSitesYaml.edges.map(({ node }, index) => (
-        <>
-          {node.childScreenshot && (
-            <ImageContainer key={node.name}>
+
+      {letters.map((letter, index) => {
+        const { node } = data.data.allSitesYaml.edges[index]
+        const imageProps =
+          node.childScreenshot &&
+          getImageProps(node.childScreenshot.screenshotFile.childImageSharp)
+        return (
+          <ImageContainer key={index}>
+            {node.childScreenshot ? (
               <BackgroundImage
-                className={hovered === node.name ? "hovered" : ""}
-                fluid={node.childScreenshot.screenshotFile.childImageSharp.fluid}
+                title={node.name}
+                className={
+                  active === node.name || clicked === node.url ? "active" : ""
+                }
+                {...imageProps}
                 alt={node.name}
               />
-              <a onMouseEnter={() => setHovered(node.name)} href={node.url} onMouseLeave={() => setHovered("")}>
-                {letters[index]}
-              </a>
-            </ImageContainer>
-          )}
-        </>
-      ))}
+            ) : (
+              <ErrorSpan
+                className={
+                  active === node.name || clicked === node.url ? "active" : ""
+                }
+              >
+                No fancy screenshot here: click to go to {node.url}
+              </ErrorSpan>
+            )}
+            <button
+              onMouseEnter={() => setActive(node.name)}
+              onClick={() => handleClick(node.url)}
+              onMouseLeave={() => setActive("")}
+            >
+              {letter}
+            </button>
+          </ImageContainer>
+        )
+      })}
     </Layout>
   )
 }
@@ -78,8 +143,9 @@ export const query = graphql`
           childScreenshot {
             screenshotFile {
               childImageSharp {
-                fluid(maxWidth: 2700) {
-                  ...GatsbyImageSharpFluid_noBase64
+                fluid(maxWidth: 2048) {
+                  ...GatsbyImageSharpFluid
+                  presentationWidth
                 }
               }
             }
