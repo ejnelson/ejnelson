@@ -11,8 +11,9 @@ const letters = ["E", "R", "I", "K"]
 
 const isMobileDevice = () => {
   return (
-    typeof window.orientation !== "undefined" ||
-    navigator.userAgent.indexOf("IEMobile") !== -1
+    window &&
+    (typeof window.orientation !== "undefined" ||
+      navigator.userAgent.indexOf("IEMobile") !== -1)
   )
 }
 const ImageContainer = styled.div`
