@@ -36,6 +36,11 @@ const ImageContainer = styled.div`
     }
   }
 `
+const FixedDiv = styled.div`
+  position: fixed;
+  top: 0px;
+  left: 0px;
+`
 const ErrorSpan = styled.span`
   color: red;
   font-family: exo;
@@ -97,7 +102,7 @@ const IndexPage = data => {
   return (
     <Layout>
       <SEO title="Erik Nelson" />
-      this is mobile? {isMobileDevice().toString()}
+      <FixedDiv>this is mobile? {isMobileDevice().toString()}</FixedDiv>
       {letters.map((letter, index) => {
         const { node } = data.data.allSitesYaml.edges[index]
         const imageProps =
