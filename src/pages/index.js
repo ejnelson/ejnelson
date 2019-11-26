@@ -11,10 +11,15 @@ import raleway from "typeface-raleway"
 const letters = ["E", "R", "I", "K"]
 
 const isMobileDevice = () => {
+  const width =
+    window.innerWidth ||
+    document.documentElement.clientWidth ||
+    document.body.clientWidth
   return (
     typeof window !== `undefined` &&
     (typeof window.orientation !== "undefined" ||
-      navigator.userAgent.indexOf("IEMobile") !== -1)
+      navigator.userAgent.indexOf("IEMobile") !== -1 ||
+      width < 770)
   )
 }
 const ImageContainer = styled.div`
