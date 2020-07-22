@@ -34,12 +34,12 @@ const CenterContainer = styled.div`
   background: #c0392b;
   background-image: radial-gradient(#e67e22, #e74c3c);
 `
-const WIN_WIDTH = window.innerWidth
-const WIN_HEIGHT = window.innerHeight
 const Hearts = ({ showTips }) => {
   const [positions, setPositions] = useState({})
   console.log("show tips?", showTips)
   useEffect(() => {
+    const WIN_WIDTH = window.innerWidth
+    const WIN_HEIGHT = window.innerHeight
     let positions = {}
     for (let i = 1; i < 33; i++) {
       positions[i] = {
