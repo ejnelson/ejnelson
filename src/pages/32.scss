@@ -1,0 +1,87 @@
+@keyframes move {
+  50% {
+    transform: translate(0, -20px);
+  }
+}
+
+.heartAndEncouragement {
+  transform: scale(0.5);
+  animation: grow 2s infinite;
+  span {
+    font-size: 4px;
+    animation: grow2 2s infinite;
+  }
+}
+.fa-heart {
+  color: red;
+  opacity: 0.3;
+  position: absolute;
+  left: 29px;
+  top: 5px;
+}
+.encouragementOn {
+  opacity: 1;
+}
+.encouragementOff {
+  opacity: 0;
+}
+
+h1 {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  z-index: 2;
+  font-weight: 600;
+  margin: 0;
+  font-size: 24px;
+  /*  text-transform: uppercase; */
+  white-space: nowrap;
+  transform: translate(-50%, -50%);
+  animation: fadeOut 2s 1;
+  @media (min-width: 37.5em) {
+    font-size: 64px;
+  }
+  span {
+    font-family: "Lobster", cursive;
+    display: inline-block;
+    margin: 0 4px;
+    animation: move 2s infinite;
+  }
+
+  @for $i from 1 through 14 {
+    span:nth-child(#{$i}) {
+      animation-delay: $i * 0.1s;
+    }
+  }
+}
+
+@keyframes grow {
+  50% {
+    transform: scale(2);
+  }
+}
+
+@keyframes grow2 {
+  50% {
+    transform: scale(1.5);
+  }
+}
+
+.visible {
+  opacity: 1;
+  transition: opacity 1s;
+}
+.hidden {
+  opacity: 0;
+  transition: opacity 1s;
+}
+
+.message {
+  display: flex;
+  flex-direction: column;
+  // align-items: center;
+  justify-content: center;
+  height: 100vh;
+  max-width: 80vw;
+  font-family: "Lobster", cursive;
+}
