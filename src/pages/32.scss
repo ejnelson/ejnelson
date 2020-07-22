@@ -8,7 +8,8 @@
   transform: scale(0.5);
   animation: grow 2s infinite;
   span {
-    font-size: 4px;
+    transform: scale(0.1);
+    font-size: 1rem;
     animation: grow2 2s infinite;
   }
 }
@@ -63,7 +64,7 @@ h1 {
 
 @keyframes grow2 {
   50% {
-    transform: scale(1.5);
+    transform: scale(0.6);
   }
 }
 

@@ -45,7 +45,7 @@ const Hearts = ({ showTips }) => {
       positions[i] = {
         x: `${Math.random() * WIN_WIDTH}px`,
         y: `${Math.random() * WIN_HEIGHT}px`,
-        word: listOfWords[Math.round(Math.random() * listOfWords.length - 1)],
+        word: listOfWords[Math.round(Math.random() * (listOfWords.length - 1))],
       }
     }
     setPositions(positions)
