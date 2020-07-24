@@ -33,13 +33,27 @@ const Message = ({ toggleWords, onClick }) => {
         least give you a little surprise!
       </span>
       <br></br>
-      <span>You are the best Mom in the world!</span>
+      <span>
+        You are the best Mom in the world! I think that you should know should
+        be reaffirmed of that every day, even if I don't remember to tell you.
+        So, now, everyday you are required to come here and press this button to
+        see some of the the words I think describe you.
+      </span>
       <button
-        style={{ border: "1px solid black", zIndex: 100 }}
+        style={{
+          border: "1px solid black",
+          backgroundColor: "transparent",
+          zIndex: 100,
+          margin: "10px 40px",
+        }}
         onClick={toggleWords}
       >
         click to toggle words
       </button>
+      <span>
+        Also, in lieu of a gift, I planned some stuff for an upcoming important
+        date!...
+      </span>
     </div>
   )
 }
@@ -51,7 +65,7 @@ const Schedule = ({ toggleWords, onClick }) => {
   return (
     <div className="message">
       <h2 onClick={onClick}>Anniversary Schedule</h2>
-      <h4>Saturday :</h4>
+      <h4>Saturday 8/8:</h4>
       <div className="event">
         <span>Drop kids off at your parents</span>
         <span>4:30pm</span>
@@ -98,7 +112,7 @@ const Schedule = ({ toggleWords, onClick }) => {
         <span>Back to the hotel!</span>
         <span>9:30pm</span>
       </div>
-      <h4>Sunday :</h4>
+      <h4>Sunday 8/9:</h4>
       <div className="event">
         <span>
           Breakfast in bed courtesy of room service or{" "}
@@ -125,13 +139,20 @@ const Schedule = ({ toggleWords, onClick }) => {
 }
 
 const Christa = () => {
-  const [step, setStep] = useState(3)
+  const [step, setStep] = useState(2)
   const [renderedClass, setRenderedClass] = useState("hidden")
+  const [isButtonVisible, setIsButtonVisible] = useState(false)
   const [showTips, setShowTips] = useState(false)
 
   useEffect(() => {
     setRenderedClass("visible")
   }, [])
+
+  useEffect(() => {
+    setTimeout(() => {
+      setIsButtonVisible(true)
+    }, 5000)
+  }, renderedClass)
 
   const handleClick = () => {
     if (step < Object.values(steps).length) transitionToStep(step + 1)
@@ -139,7 +160,9 @@ const Christa = () => {
   }
 
   const transitionToStep = step => {
+    setShowTips(false)
     setRenderedClass("hidden")
+    setIsButtonVisible(false)
     setTimeout(() => {
       setStep(step)
     }, 1000)
@@ -168,11 +191,13 @@ const Christa = () => {
         toggleWords={handleToggleWords}
         onClick={handleClick}
       />
-      <div className={"proceedContainer"}>
-        <button className={"proceed"} onClick={handleClick}>
-          click to proceed
-        </button>
-      </div>
+      {isButtonVisible && (
+        <div className={`proceedContainer fadein`}>
+          <button className={"proceed"} onClick={handleClick}>
+            click to proceed
+          </button>
+        </div>
+      )}
     </BirthdayWrapper>
   )
 }

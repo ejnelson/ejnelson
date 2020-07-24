@@ -5,8 +5,12 @@
 }
 
 .heartAndEncouragement {
-  transform: scale(0.5);
-  animation: grow 2s infinite;
+  width: 0px;
+  height: 0px;
+  .fa-heart {
+    animation: grow 2s infinite;
+    transform: scale(0.5);
+  }
   span {
     transform: scale(0.1);
     font-size: 1rem;
@@ -64,7 +68,7 @@ h1 {
 
 @keyframes grow2 {
   50% {
-    transform: scale(0.5);
+    transform: scale(0.6);
   }
 }
 
@@ -99,6 +103,7 @@ h4 {
 .proceedContainer {
   position: fixed;
   bottom: 0px;
+  left: 0px;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -107,4 +112,34 @@ h4 {
 .proceed {
   margin-top: 30px;
   align-self: center;
+  color: darkred;
+  border: 1px solid darkred;
+  border-radius: 15px;
+  background-color: transparent;
+  padding: 10px;
+  margin: 10px;
+}
+
+.fadein {
+  -webkit-animation: 3s ease 0s normal forwards 1 fadein;
+  animation: 3s ease 0s normal forwards 1 fadein;
+}
+@keyframes fadein {
+  0% {
+    opacity: 0;
+  }
+
+  100% {
+    opacity: 1;
+  }
+}
+
+@-webkit-keyframes fadein {
+  0% {
+    opacity: 0;
+  }
+
+  100% {
+    opacity: 1;
+  }
 }
