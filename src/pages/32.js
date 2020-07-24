@@ -82,7 +82,8 @@ const Schedule = ({ toggleWords, onClick }) => {
       </div>
       <div className="event">
         <span>
-          Pick up take out from <a href="cosettas.com">Cosetta's eatery</a>
+          Pick up take out from{" "}
+          <a href="https://www.cossettas.com">Cosetta's eatery</a>
         </span>
         <span>6:00pm</span>
       </div>
