@@ -103,9 +103,7 @@ const Schedule = ({ toggleWords, onClick }) => {
       <div className="event">
         <span>
           Curbside pickup icecream from
-          <a href="https://icecreampizzaroseville.com/wp-content/uploads/2020/05/Curbside-Menu-Grand-1.pdf">
-            Grand Ole Creamery
-          </a>
+          <a href="https://grandolecreamery.com/shop/">Grand Ole Creamery</a>
         </span>
         <span>8:30pm</span>
       </div>
