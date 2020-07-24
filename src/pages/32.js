@@ -139,7 +139,7 @@ const Schedule = ({ toggleWords, onClick }) => {
 }
 
 const Christa = () => {
-  const [step, setStep] = useState(2)
+  const [step, setStep] = useState(1)
   const [renderedClass, setRenderedClass] = useState("hidden")
   const [isButtonVisible, setIsButtonVisible] = useState(false)
   const [showTips, setShowTips] = useState(false)
