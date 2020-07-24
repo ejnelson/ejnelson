@@ -44,8 +44,88 @@ const Message = ({ toggleWords, onClick }) => {
   )
 }
 
+const Schedule = ({ toggleWords, onClick }) => {
+  // useEffect(() => {
+  //   toggleWords(false)
+  // }, [])
+  return (
+    <div className="message">
+      <h2 onClick={onClick}>Anniversary Schedule</h2>
+      <h4>Saturday :</h4>
+      <div className="event">
+        <span>Drop kids off at your parents</span>
+        <span>4:30pm</span>
+      </div>
+      <div className="event">
+        <span>
+          Check into{" "}
+          <a href="https://www.intercontinentalstp.com/">
+            InterContinental Hotel
+          </a>{" "}
+          in St. Paul
+        </span>
+        <span>5:00pm</span>
+      </div>
+      <div className="event">
+        <span>
+          Pick up take out from <a href="cosettas.com">Cosetta's eatery</a>
+        </span>
+        <span>6:00pm</span>
+      </div>
+      <div className="event">
+        <span>
+          Eat dinner at nearby{" "}
+          <a href="https://www.stpaul.gov/departments/parks-recreation/harriet-island/raspberry-island">
+            Raspberry Island Park
+          </a>{" "}
+          or{" "}
+          <a href="https://www.stpaul.gov/facilities/irvine-park">
+            Irvine Park
+          </a>
+        </span>
+        <span>6:30pm</span>
+      </div>
+      <div className="event">
+        <span>
+          Curbside pickup icecream from
+          <a href="https://icecreampizzaroseville.com/wp-content/uploads/2020/05/Curbside-Menu-Grand-1.pdf">
+            Grand Ole Creamery
+          </a>
+        </span>
+        <span>8:30pm</span>
+      </div>
+      <div className="event">
+        <span>Back to the hotel!</span>
+        <span>9:30pm</span>
+      </div>
+      <h4>Sunday :</h4>
+      <div className="event">
+        <span>
+          Breakfast in bed courtesy of room service or{" "}
+          <a href="http://citizensaintpaul.com/index.php/breakfast-menu/#1505587621394-0d490114-c3da">
+            Citizen restaurant (located adjacent to hotel)
+          </a>
+        </span>
+        <span>7:00am</span>
+      </div>
+      <div className="event">
+        <span>A walk along the river in downtown St. Paul</span>
+        <span>8:30pm</span>
+      </div>
+      <div className="event">
+        <span>Donuts and coffee at Keg and Case</span>
+        <span>10:30am</span>
+      </div>
+      <div className="event">
+        <span>Pick up the boys</span>
+        <span>11:00am</span>
+      </div>
+    </div>
+  )
+}
+
 const Christa = () => {
-  const [step, setStep] = useState(1)
+  const [step, setStep] = useState(3)
   const [renderedClass, setRenderedClass] = useState("hidden")
   const [showTips, setShowTips] = useState(false)
 
@@ -71,7 +151,7 @@ const Christa = () => {
   const steps = {
     [1]: HappyBirthday,
     [2]: Message,
-    // [3]: Schedule,
+    [3]: Schedule,
   }
   const handleToggleWords = () => {
     console.log("TOGGLED")
@@ -88,6 +168,11 @@ const Christa = () => {
         toggleWords={handleToggleWords}
         onClick={handleClick}
       />
+      <div className={"proceedContainer"}>
+        <button className={"proceed"} onClick={handleClick}>
+          click to proceed
+        </button>
+      </div>
     </BirthdayWrapper>
   )
 }
